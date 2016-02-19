@@ -221,6 +221,7 @@ void SortTestResult(T arr[], int n, int sort)
         arrcopy[i] = arr[i];
     }
     
+    
     cout << "n = " << n;
     if (sort == SELECTION)
     {

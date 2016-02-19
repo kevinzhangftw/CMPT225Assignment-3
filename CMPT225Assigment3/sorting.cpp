@@ -29,13 +29,11 @@ int SelectionSort(T arr[], int n)
     int count = 0; // counter for barometer operations
     for (int i=0; i<n; ++i) {
         for (int j =i+1; j<n; ++j) {
-            count++;
             if (arr[i]>arr[j]) {
                 Swap(arr, i, j);
             }
             count++;
         }
-        count++;
     }
     return count;
 }
@@ -58,26 +56,49 @@ void QuicksortHelper(T arr[], int low, int high, int& counter)
     if (low < high) {
         int pivotindex = QSPartition(arr, low, high, counter);
         QuicksortHelper(arr, low, pivotindex-1, counter);
-        counter++;
         QuicksortHelper(arr, pivotindex+1, high, counter);
-        counter++;
     }
 }
 
 template <class T>
 int QSPartition(T arr[], int low, int high, int& counter)
 {
-    T pivot = arr[high];
-    int pivotindex = low;
-    for (int j=pivotindex; j<=high-1; ++j) {
-        if (arr[j]<=pivot) {
-            Swap(arr, pivotindex, j);
-            pivotindex++;
-        }
+    int pivotindex = high;
+    while (true){
         counter++;
+        while (arr[low] < arr[pivotindex])
+        {
+            low++;
+        }
+        
+        while (arr[high] > arr[pivotindex])
+        {
+            high--;
+
+        }
+        
+        if (low < high)
+        {
+            Swap(arr, high, low);
+
+        }
+        else
+        {
+            return high;
+            // Return pivot once high == low
+        }
     }
-    Swap(arr, pivotindex, high);
-    return pivotindex;
+//    T pivot = arr[high];
+//    int pivotindex = low;
+//    for (int j=pivotindex; j<=high-1; ++j) {
+//        if (arr[j]<=pivot) {
+//            Swap(arr, pivotindex, j);
+//            pivotindex++;
+//        }
+//        counter++;
+//    }
+//    Swap(arr, pivotindex, high);
+//    return pivotindex;
 }
 
 // Randomized Quicksort
@@ -130,9 +151,7 @@ void MergesortHelper(T arr[], int low, int high, int n, int& counter)
     if (low<high){
         int mid= low + (high-low)/2;
         MergesortHelper(arr, low, mid, n, counter);
-        counter++;
         MergesortHelper(arr, mid+1, high, n, counter);
-        counter++;
         Merge(arr, low, mid, high, n, counter);
     }
 }
@@ -144,7 +163,6 @@ void Merge(T arr[], int low, int mid, int high, int n, int& counter)
     temp = new T [n];
     for (int i=low; i<=high; ++i) {
         temp[i] = arr[i];
-        counter++;
     }
     int i = low;
     int j = mid+1;
@@ -181,9 +199,7 @@ int ShellSort(T arr[], int n)
                 Swap(arr, j, j+gap);
                 count++;
             }
-            count++;
         }
-        count++;
     }
     
     return count;
