@@ -8,6 +8,7 @@
 
 #include "sorting.hpp"
 #include <iostream>
+using namespace std;
 
 // File:        sorting.cpp
 // Author:      Geoffrey Tien
@@ -126,13 +127,45 @@ int Mergesort(T arr[], int n)
 template <class T>
 void MergesortHelper(T arr[], int low, int high, int n, int& counter)
 {
-    
+    if (low<high){
+        int mid= low + (high-low)/2;
+        MergesortHelper(arr, low, mid, n, counter);
+        counter++;
+        MergesortHelper(arr, mid+1, high, n, counter);
+        counter++;
+        Merge(arr, low, mid, high, n, counter);
+    }
 }
 
 template <class T>
 void Merge(T arr[], int low, int mid, int high, int n, int& counter)
 {
-    
+    T* temp;
+    temp = new T [n];
+    for (int i=low; i<=high; ++i) {
+        temp[i] = arr[i];
+        counter++;
+    }
+    int i = low;
+    int j = mid+1;
+    int k = low;
+    while (i<= mid && j<=high) {
+        if (temp[i]<=temp[j]) {
+            arr[k] =temp[i];
+            ++i;
+        }else{
+            arr[k] =temp[j];
+            ++j;
+        }
+        ++k;
+        counter++;
+    }
+    while (i<=mid) {
+        arr[k] = temp[i];
+        ++k;
+        ++i;
+    }
+    delete [] temp;
 }
 
 // Shell Sort
@@ -141,6 +174,17 @@ template <class T>
 int ShellSort(T arr[], int n)
 {
     int count = 0;
+    
+    for (int gap = n/2; gap>0; gap/=2) {
+        for (int i=gap; i<n; ++i) {
+            for (int j=i-gap; j>=0 && arr[j]>arr[j+gap]; j-=gap) {
+                Swap(arr, j, j+gap);
+                count++;
+            }
+            count++;
+        }
+        count++;
+    }
     
     return count;
 }

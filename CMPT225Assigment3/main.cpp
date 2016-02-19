@@ -225,6 +225,7 @@ void SortTestResult(T arr[], int n, int sort)
     if (sort == SELECTION)
     {
         cout << ", comparisons = " << SelectionSort(arr, n);
+        //TEST SORTING CORRECTNESS HERE
         //printArray<T>(arr, n);
     }
     else if (sort == QUICK)
@@ -240,10 +241,12 @@ void SortTestResult(T arr[], int n, int sort)
     else if (sort == MERGE)
     {
         cout << ", comparisons = " << Mergesort(arr, n);
+        //printArray<T>(arr, n);
     }
     else if (sort == SHELL)
     {
         cout << ", comparisons = " << ShellSort(arr, n);
+        //printArray<T>(arr, n);
     }
     cout <<", values = " << Contains(arr, arrcopy, n);
     cout <<", sorted = " << Sorted(arr, n) << endl;
