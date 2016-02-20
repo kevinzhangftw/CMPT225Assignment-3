@@ -64,30 +64,72 @@ template <class T>
 int QSPartition(T arr[], int low, int high, int& counter)
 {
     int pivotindex = high;
-    while (true){
-        counter++;
-        while (arr[low] < arr[pivotindex])
+    T temp;
+    
+    T pivot = arr[high];
+    high--;
+    
+    
+    while ( low <= high )
+    {
+        while( arr[low] <= pivot && low <= high )
         {
             low++;
+            counter++;
         }
-        
-        while (arr[high] > arr[pivotindex])
+        while( arr[high] > pivot && low <= high )
         {
             high--;
-
+            counter++;
         }
-        
-        if (low < high)
+        if ( low < high )
         {
-            Swap(arr, high, low);
-
-        }
-        else
-        {
-            return high;
-            // Return pivot once high == low
+            //std::swap(arr[low], arr[high]);
+            
+            temp = arr[low];
+            arr[low] = arr[high];
+            arr[high] = temp;
+            
         }
     }
+    //std::swap(arr[high + 1], arr[pivotindex]);
+    //Swap pivot into place
+    
+    temp = arr[high + 1];
+    arr[high + 1] = arr[pivotindex];
+    arr[pivotindex] = temp;
+    
+    
+    pivotindex = high + 1;
+    return pivotindex;
+
+//    int pivotindex = high;
+//    while (true){
+//        while (arr[low] < arr[pivotindex])
+//        {
+//            low++;
+//            counter++;
+//        }
+//
+//        while (arr[high] > arr[pivotindex])
+//        {
+//            high--;
+//            counter++;
+//
+//        }
+//        
+//        if (low < high)
+//        {
+//            Swap(arr, high, low);
+//            //counter++;
+//        }
+//        else
+//        {
+//            //counter++;
+//            return high;
+//            // Return pivot once high == low
+//        }
+//    }
 //    T pivot = arr[high];
 //    int pivotindex = low;
 //    for (int j=pivotindex; j<=high-1; ++j) {
@@ -119,9 +161,7 @@ void RQuicksortHelper(T arr[], int low, int high, int& counter)
     if (low<high) {
         int pivotindex = RQSPartition(arr, low, high, counter);
         RQuicksortHelper(arr, low, pivotindex-1, counter);
-        counter++;
         RQuicksortHelper(arr, pivotindex+1, high, counter);
-        counter++;
     }
 }
 
@@ -164,6 +204,7 @@ void Merge(T arr[], int low, int mid, int high, int n, int& counter)
     for (int i=low; i<=high; ++i) {
         temp[i] = arr[i];
     }
+    
     int i = low;
     int j = mid+1;
     int k = low;
@@ -171,12 +212,13 @@ void Merge(T arr[], int low, int mid, int high, int n, int& counter)
         if (temp[i]<=temp[j]) {
             arr[k] =temp[i];
             ++i;
+            counter++;
         }else{
             arr[k] =temp[j];
             ++j;
+            counter++;
         }
         ++k;
-        counter++;
     }
     while (i<=mid) {
         arr[k] = temp[i];

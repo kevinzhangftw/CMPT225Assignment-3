@@ -231,17 +231,17 @@ void SortTestResult(T arr[], int n, int sort)
     }
     else if (sort == QUICK)
     {
-        cout << ", comparisons = " << Quicksort(arr, n);
+        cout << ", comparisons = " << Quicksort( arr, n);
         //printArray<T>(arr, n);
     }
     else if (sort == RQUICK)
     {
-        cout << ", comparisons = " << RQuicksort(arr, n);
+        cout << ", comparisons = " << RQuicksort( arr, n);
         //printArray<T>(arr, n);
     }
     else if (sort == MERGE)
     {
-        cout << ", comparisons = " << Mergesort(arr, n);
+        cout << ", comparisons = " << Mergesort( arr, n);
         //printArray<T>(arr, n);
     }
     else if (sort == SHELL)
